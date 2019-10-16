@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "polished": "^3.4.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0"
+    "react-icons": "^3.7.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "styled-components": "^4.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,5 +31,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
+    "eslint": "^6.5.1",
+    "eslint-plugin-react": "^7.16.0"
   }
 }
