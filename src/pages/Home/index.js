@@ -1,100 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MdShoppingCart } from 'react-icons/md';
 import { ProductList } from './styles';
 
-export default function Home() {
-  return (
-    <ProductList>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_detalhe2.jpg?ims=326x"
-          all="Tênis"
-        />
-        <strong>Um belo tênis</strong>
-        <span>R$129,90</span>
+import api from '../../services/api';
+import { formatPrice } from '../../util/format';
 
-        <button>
-          <div>
-            <MdShoppingCart size={16} color="#fff" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_detalhe2.jpg?ims=326x"
-          all="Tênis"
-        />
-        <strong>Um belo tênis</strong>
-        <span>R$129,90</span>
+export default class Home extends Component {
+  state = {
+    products: [],
+  };
+  async componentDidMount() {
+    const response = await api.get('/products');
 
-        <button>
-          <div>
-            <MdShoppingCart size={16} color="#fff" />
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_detalhe2.jpg?ims=326x"
-          all="Tênis"
-        />
-        <strong>Um belo tênis</strong>
-        <span>R$129,90</span>
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price), // formatação de preço
+    }));
 
-        <button>
-          <div>
-            <MdShoppingCart size={16} color="#fff" />
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_detalhe2.jpg?ims=326x"
-          all="Tênis"
-        />
-        <strong>Um belo tênis</strong>
-        <span>R$129,90</span>
+    this.setState({ products: data });
+  }
+  render() {
+    const { products } = this.state;
+    return (
+      <ProductList>
+        {products.map(product => (
+          <li key={product.id}>
+            <img src={product.image} all={product.title} />
+            <strong>{product.title}</strong>
+            <span>{product.priceFormatted}</span>
 
-        <button>
-          <div>
-            <MdShoppingCart size={16} color="#fff" />
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_detalhe2.jpg?ims=326x"
-          all="Tênis"
-        />
-        <strong>Um belo tênis</strong>
-        <span>R$129,90</span>
-
-        <button>
-          <div>
-            <MdShoppingCart size={16} color="#fff" />
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/36/HZM-1731-036/HZM-1731-036_detalhe2.jpg?ims=326x"
-          all="Tênis"
-        />
-        <strong>Um belo tênis</strong>
-        <span>R$129,90</span>
-
-        <button>
-          <div>
-            <MdShoppingCart size={16} color="#fff" />
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-    </ProductList>
-  );
+            <button>
+              <div>
+                <MdShoppingCart size={16} color="#fff" /> 3
+              </div>
+              <span>ADICIONAR AO CARRINHO</span>
+            </button>
+          </li>
+        ))}
+      </ProductList>
+    );
+  }
 }
