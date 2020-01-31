@@ -2,7 +2,7 @@ import produce from 'immer';
 
 export default function cart(state = [], action) {
   switch (action.type) {
-    case '@cart/ADD':
+    case '@cart/ADD_SUCCESS':
       return produce(state, draft => {
         // verifica se o produto adicionado ja existe
         const productIndex = draft.findIndex(p => p.id === action.product.id);
