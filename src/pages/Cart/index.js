@@ -10,15 +10,14 @@ import {
 import * as CartActions from '../../store/modeles/cart/actions';
 import { Container, ProductTable, Total } from './styles';
 import { formatPrice } from '../../util/format';
-import produce from 'immer';
 
-function Cart({ cart, removeFromCart, updateAmount, total }) {
+function Cart({ cart, removeFromCart, updateAmountResquest, total }) {
   function incremente(product) {
-    updateAmount(product.id, product.amount + 1);
+    updateAmountResquest(product.id, product.amount + 1);
   }
 
   function decrement(product) {
-    updateAmount(product.id, product.amount - 1);
+    updateAmountResquest(product.id, product.amount - 1);
   }
 
   return (
